@@ -4,27 +4,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz App </title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="style1.css">
+    <title>Quiz Categories</title>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Simple Quiz</h1>
-        <h3 id="question"></h3>
-        <div id="answerButtons"></div>
-        <div class="next"><button id="next">Next</button></div>
+    <h1>Quiz Categories</h1>
+    <div id="categories-list"></div>
 
-        <main>
-            <button class="mic-toggle" id="mic">
-                <span class="material-icons">mic</span>
-            </button>
-            <audio class="playback" controls></audio>
-        </main>
-    </div>
+    <script>
+        async function fetchCategories() {
+            try {
+                const response = await fetch('/categories');
+                const categories = await response.json();
+                const categoriesList = document.getElementById('categories-list');
+                categories.forEach(category => {
+                    const button = document.createElement('button');
+                    button.style.display = 'block';
+                    button.style.marginTop = '20px';
+                    button.style.background = 'none';
+                    button.style.outline = 'none';
+                    button.style.border = '1px solid black';
+                    button.style.color = 'black';
+                    button.style.width = '100%';
+                    button.style.padding = '10px';
+                    button.style.borderRadius = '6px';
+                    button.style.textAlign = 'left';
+                    button.style.fontSize = '1rem';
+                    button.style.fontWeight = '550';
+                    button.style.cursor = 'pointer';
+
+                    // Apply hover styles
+                    button.addEventListener('mouseenter', () => {
+                        button.style.backgroundColor = 'black';
+                        button.style.color = 'white';
+                        button.style.transitionDuration = '.4s';
+                    });
+
+                    // Revert to default styles on mouse leave
+                    button.addEventListener('mouseleave', () => {
+                        button.style.backgroundColor = 'transparent';
+                        button.style.color = 'black';
+                    });
+
+                    button.textContent = category;
+                    button.addEventListener('click', () => {
+                        redirectToQuizPage(category);
+                    });
+                    categoriesList.appendChild(button);
+                });
+            } catch (error) {
+                console.error('Could not fetch categories: ', error);
+            }
+        }
+
+        function redirectToQuizPage(category) {
+            window.location.href = `quiz.html?category=${encodeURIComponent(category)}`;
+
+        }
+
+        fetchCategories();
+    </script>
     <script src="script.js"></script>
-    <script src="/micscript.js"></script>
 </body>
 
 </html>
