@@ -3,6 +3,21 @@ const mysql = require("mysql2/promise");
 const app = express();
 const port = 3000;
 
+const multer = require("multer"); //middleware for handling hte multipart/form-data
+const { exec } = require("child_process");
+const upload = multer({ dest: "uploads/" });
+
+app.post("/upload-audio", (req, res) => {
+  console.log("Received audio upload request");
+  // If using a middleware like multer for handling uploads
+  console.log("Uploaded file:", req.file);
+
+  // Continue processing the request...
+
+  // Send a response back to the client
+  res.json({ message: "Audio uploaded successfully in upload audio" });
+});
+
 const pool = mysql.createPool({
   host: "localhost",
   user: "root",
