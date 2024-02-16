@@ -3,7 +3,6 @@ const mysql = require('mysql2/promise');
 const app = express();
 const port = 3000;
 
-
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
