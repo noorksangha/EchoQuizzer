@@ -1,0 +1,189 @@
+*{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body{
+    background: #051e51ff;
+    margin: 0;
+    padding: 0;
+    box-sizing: 0;
+}
+.container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    max-width: 600px;
+    transform: translate(-50%,-50%);
+    background-color: white;
+    
+    padding: 20px;
+    border-radius: 15px;
+}
+h1{
+    color:#051e51ff;
+    padding-bottom: 10px;
+    border-bottom: 2px solid silver;
+}
+h3{
+    color:#051e51ff;
+}
+.choice{
+    display: block;
+    margin-top: 20px;
+    background: none;
+    outline: none;
+    border: 1px solid black;
+    color: black;
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 550;
+    cursor: pointer;
+}
+.choice:hover:not(:disabled){
+    background-color: black;
+    color: white;
+    transition-duration: .4s;
+}
+.choice:disabled{
+    cursor:no-drop;
+}
+.next{
+    display: flex;
+    justify-content:right;
+    margin:40px 0 20px 0;
+}
+.next button{
+    background: #051e51ff;
+    color: white;
+    padding: 10px;
+    width: 20%;
+    text-align: center;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    display: none;
+}
+
+.correct{
+    background-color: #9aeabc;
+
+}
+.incorrect{
+    background-color: #ff9393;
+}
+
+/* this is the code form style2.css */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mic-toggle {
+    position: relative;
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    /* background-color: crimson; */
+    /* background-color: rgb(2, 201, 111); */
+    background-color: rgb(8, 28, 84);
+    margin-bottom: 2rem;
+}
+
+.mic-toggle .material-icons {
+    font-size: 2.5rem;
+}
+
+.mic-toggle:before,
+.mic-toggle:after {
+    --pad: 0rem;
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 0;
+    /* background-color: rgba(220, 20, 60, 0.2); */
+    background-color: rgba(130, 81, 228, 0.2);
+    top: var(--pad);
+    left: var(--pad);
+    right: var(--pad);
+    bottom: var(--pad);
+    border-radius: 50%;
+}
+
+.mic-toggle:after {
+    transition: 0.4s;
+}
+
+.mic-toggle:before {
+    transition: 0.2s;
+}
+
+.mic-toggle:hover:before {
+    --pad: -1rem;
+}
+
+.mic-toggle:hover:after {
+    --pad: -2rem;
+}
+
+.mic-toggle span {
+    position: relative;
+    z-index: 1;
+    color: #fff;
+    font-size: 6rem;
+}
+
+.mic-toggle.is-recording:after {
+    animation: smoothPadAfter 0.6s ease-in alternate-reverse forwards infinite;
+}
+
+.mic-toggle.is-recording:before {
+    animation: smoothPadBefore 0.6s ease-in alternate-reverse forwards infinite;
+}
+
+@keyframes smoothPadAfter {
+    0% {
+        top: -2rem;
+        left: -2rem;
+        right: -2rem;
+        bottom: -2rem;
+    }
+
+    100% {
+        top: -1rem;
+        left: -1rem;
+        right: -1rem;
+        bottom: -1rem;
+    }
+}
+
+@keyframes smoothPadBefore {
+    0% {
+        top: -1rem;
+        left: -1rem;
+        right: -1rem;
+        bottom: -1rem;
+    }
+
+    100% {
+        top: -0.5rem;
+        left: -0.5rem;
+        right: -0.5rem;
+        bottom: -0.5rem;
+    }
+}
+
+.playback {
+    margin-bottom: 1rem;
+    box-shadow: 0px 0px 1rem rgba(0, 0, 0, 0.2);
+    border-radius: 999px;
+}
+
+.is-hidden {
+    display: none;
+}

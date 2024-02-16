@@ -1,3 +1,4 @@
+//script.js
 let questions = [];
 const questionZone=document.getElementById("question");
 const answerbuttons=document.getElementById('answerButtons');

@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz App </title>
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style1.css">
 </head>
 
 <body>
@@ -14,10 +15,16 @@
         <h3 id="question"></h3>
         <div id="answerButtons"></div>
         <div class="next"><button id="next">Next</button></div>
-        <div class="microphone"><img src="../images/microphone.png" id="microphone" alt="Microphone" />
-        </div>
+
+        <main>
+            <button class="mic-toggle" id="mic">
+                <span class="material-icons">mic</span>
+            </button>
+            <audio class="playback" controls></audio>
+        </main>
     </div>
     <script src="script.js"></script>
+    <script src="/micscript.js"></script>
 </body>
 
 </html>
