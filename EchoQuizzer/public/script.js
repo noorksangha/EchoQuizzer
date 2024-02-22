@@ -12,7 +12,18 @@ function startQuiz(){
     score = 0;
     fetchQuestions();
 }
+document.getElementById('runPythonScript').addEventListener('click', function() {
+    fetch('/run-script', { method: 'POST' })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        alert('Script executed: ' + data.message);
 
+        handleNextBtn();
+
+      })
+      .catch(error => console.error('Error:', error));
+  });
 
 async function fetchQuestions() {
     try {
