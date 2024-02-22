@@ -3,26 +3,35 @@ const mysql = require("mysql2/promise");
 const app = express();
 const port = 3000;
 
-const multer = require("multer"); //middleware for handling hte multipart/form-data
-const { exec } = require("child_process");
+const multer = require("multer");
+const fs = require('fs');
 const upload = multer({ dest: "uploads/" });
 
-app.post("/upload-audio", (req, res) => {
-  console.log("Received audio upload request");
-  // If using a middleware like multer for handling uploads
-  console.log("Uploaded file:", req.file);
-
-  // Continue processing the request...
-
-  // Send a response back to the client
-  res.json({ message: "Audio uploaded successfully in upload audio" });
+// Import exec from child_process for executing external commands
+const { exec } = require("child_process");
+app.post('/run-script', (req, res) => {
+  exec('python spd.py', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`exec error: ${error}`);
+      return res.status(500).json({ message: 'Script execution failed' });
+    }
+    console.log(`stdout: ${stdout}`);
+    console.error(`stderr: ${stderr}`);
+    res.json({ message: 'Script executed successfully', output: stdout });
+  });
 });
+
+
+
+// Modify the route to use multer middleware for file upload
+
+
 
 const pool = mysql.createPool({
   host: "localhost",
   user: "root",
   database: "quiz_app",
-  password: "mysql123",
+  password: "oracle1",
 });
 app.use(express.static("public"));
 
