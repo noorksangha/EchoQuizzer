@@ -25,25 +25,48 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Function to stop recording and compile audio blobs
-  async function stopRecording() {
-    mediaRecorder.stop();
-    mediaRecorder.stream.getTracks().forEach((track) => track.stop());
+ // Function to stop recording and compile audio blobs
+async function stopRecording() {
+  mediaRecorder.stop();
+  mediaRecorder.stream.getTracks().forEach((track) => track.stop());
 
-    return new Promise((resolve) => {
-      mediaRecorder.addEventListener("stop", () => {
-        // Compile the audio blobs into a .wav format Blob
-        lastRecordedBlob = new Blob(audioBlobs, { type: "audio/wav" });
-        const audioUrl = URL.createObjectURL(lastRecordedBlob);
-        playbackElement.src = audioUrl;
+  return new Promise((resolve) => {
+    mediaRecorder.addEventListener("stop", () => {
+      // Compile the audio blobs into a .wav format Blob
+      lastRecordedBlob = new Blob(audioBlobs, { type: "audio/wav" });
+      const audioUrl = URL.createObjectURL(lastRecordedBlob);
+      playbackElement.src = audioUrl;
 
-        // Reset the mic button appearance
-        micBtn.classList.remove("is-recording");
+      // Download the .wav file
+      downloadBlob(lastRecordedBlob, "recording.wav");
 
-        // Resolve the promise with the lastRecordedBlob after it's been sent to the server
-        resolve(lastRecordedBlob);
-      });
+      // Reset the mic button appearance
+      micBtn.classList.remove("is-recording");
+
+      // Resolve the promise with the lastRecordedBlob after it's been sent to the server
+      resolve(lastRecordedBlob);
     });
-  }
+  });
+}
+
+// Function to download a blob as a file
+function downloadBlob(blob, filename) {
+  // Create an invisible a element
+  const element = document.createElement("a");
+  document.body.appendChild(element);
+  element.style.display = 'none';
+
+  // Create a URL for the blob
+  const url = window.URL.createObjectURL(blob);
+  element.href = url;
+  element.download = filename;
+  element.click();
+
+  // Remove the a element after download
+  document.body.removeChild(element);
+  window.URL.revokeObjectURL(url); // Clean up the URL object
+}
+
 
   // This function now separately awaits the stopping of the recording
   // and then uploads the audio blob to the server.

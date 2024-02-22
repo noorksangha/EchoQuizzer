@@ -12,22 +12,33 @@ function startQuiz(){
     score = 0;
     fetchQuestions();
 }
+document.getElementById('runPythonScript').addEventListener('click', function() {
+    fetch('/run-script', { method: 'POST' })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        alert('Script executed: ' + data.message);
 
+        handleNextBtn();
 
-async function fetchQuestions() {
-        try {
-            const urlParams = new URLSearchParams(window.location.search);
-            const category = urlParams.get('category');
-            const response = await fetch(`/get-questions?category=${encodeURIComponent(category)}`);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            questions = await response.json(); // Update the questions array with fetched data
-            showQuestion(); // Show the first question
-        } catch (error) {
-            console.error('Could not fetch questions: ', error);
+      })
+      .catch(error => console.error('Error:', error));
+  });
+
+  async function fetchQuestions() {
+    try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get('category');
+        const response = await fetch(`/get-questions?category=${encodeURIComponent(category)}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
+        questions = await response.json(); // Update the questions array with fetched data
+        showQuestion(); // Show the first question
+    } catch (error) {
+        console.error('Could not fetch questions: ', error);
     }
+}
 
 function showQuestion(){
     resetContent()
@@ -67,13 +78,24 @@ function selectAnswer(e){
     });
     next.style.display="block"
 }
-function showScore(){
-    resetContent()
-    questionZone.style.textAlign="center"
-    questionZone.innerHTML="You scored "+score+ " out of "+questions.length+" !";
-    next.innerHTML="Play Again"
-    next.style.display="block"
+
+function showScore() {
+    resetContent();
+    
+    // Hide the buttons and audio controls
+    document.getElementById('runPythonScript').style.display = 'none';
+    document.getElementById('mic').style.display = 'none';
+    document.querySelector('.playback').style.display = 'none';
+
+    // Set the question zone to display the score
+    questionZone.style.textAlign = "center";
+    questionZone.innerHTML = "You scored " + score + " out of " + questions.length + " !";
+    
+    // Update the next button to indicate playing again and show it
+    next.innerHTML = "Play Again";
+    next.style.display = "block";
 }
+
 function handleNextBtn(){
     currentQuestionIndex++
     if(currentQuestionIndex<questions.length){
