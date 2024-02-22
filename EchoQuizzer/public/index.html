@@ -9,62 +9,64 @@
 </head>
 
 <body>
-    <h1>Quiz Categories</h1>
-    <div id="categories-list"></div>
+    <div class="container">
+        <h1>Quiz Categories</h1>
+        <div id="categories-list"></div>
 
-    <script>
-        async function fetchCategories() {
-            try {
-                const response = await fetch('/categories');
-                const categories = await response.json();
-                const categoriesList = document.getElementById('categories-list');
-                categories.forEach(category => {
-                    const button = document.createElement('button');
-                    button.style.display = 'block';
-                    button.style.marginTop = '20px';
-                    button.style.background = 'none';
-                    button.style.outline = 'none';
-                    button.style.border = '1px solid black';
-                    button.style.color = 'black';
-                    button.style.width = '100%';
-                    button.style.padding = '10px';
-                    button.style.borderRadius = '6px';
-                    button.style.textAlign = 'left';
-                    button.style.fontSize = '1rem';
-                    button.style.fontWeight = '550';
-                    button.style.cursor = 'pointer';
-
-                    // Apply hover styles
-                    button.addEventListener('mouseenter', () => {
-                        button.style.backgroundColor = 'black';
-                        button.style.color = 'white';
-                        button.style.transitionDuration = '.4s';
-                    });
-
-                    // Revert to default styles on mouse leave
-                    button.addEventListener('mouseleave', () => {
-                        button.style.backgroundColor = 'transparent';
+        <script>
+            async function fetchCategories() {
+                try {
+                    const response = await fetch('/categories');
+                    const categories = await response.json();
+                    const categoriesList = document.getElementById('categories-list');
+                    categories.forEach(category => {
+                        const button = document.createElement('button');
+                        button.style.display = 'block';
+                        button.style.marginTop = '20px';
+                        button.style.background = 'none';
+                        button.style.outline = 'none';
+                        button.style.border = '1px solid black';
                         button.style.color = 'black';
-                    });
+                        button.style.width = '100%';
+                        button.style.padding = '10px';
+                        button.style.borderRadius = '6px';
+                        button.style.textAlign = 'left';
+                        button.style.fontSize = '1rem';
+                        button.style.fontWeight = '550';
+                        button.style.cursor = 'pointer';
 
-                    button.textContent = category;
-                    button.addEventListener('click', () => {
-                        redirectToQuizPage(category);
+                        // Apply hover styles
+                        button.addEventListener('mouseenter', () => {
+                            button.style.backgroundColor = 'black';
+                            button.style.color = 'white';
+                            button.style.transitionDuration = '.4s';
+                        });
+
+                        // Revert to default styles on mouse leave
+                        button.addEventListener('mouseleave', () => {
+                            button.style.backgroundColor = 'transparent';
+                            button.style.color = 'black';
+                        });
+
+                        button.textContent = category;
+                        button.addEventListener('click', () => {
+                            redirectToQuizPage(category);
+                        });
+                        categoriesList.appendChild(button);
                     });
-                    categoriesList.appendChild(button);
-                });
-            } catch (error) {
-                console.error('Could not fetch categories: ', error);
+                } catch (error) {
+                    console.error('Could not fetch categories: ', error);
+                }
             }
-        }
 
-        function redirectToQuizPage(category) {
-            window.location.href = `quiz.html?category=${encodeURIComponent(category)}`;
+            function redirectToQuizPage(category) {
+                window.location.href = `quiz.html?category=${encodeURIComponent(category)}`;
 
-        }
+            }
 
-        fetchCategories();
-    </script>
+            fetchCategories();
+        </script>
+    </div>
     <script src="script.js"></script>
 </body>
 

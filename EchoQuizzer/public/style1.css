@@ -2,11 +2,12 @@
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 body{
-    /* background: #051e51ff; */
+    background: #051e51ff;
     margin: 0;
     padding: 0;
     box-sizing: 0;
 }
+
 .container{
     position: absolute;
     top: 50%;

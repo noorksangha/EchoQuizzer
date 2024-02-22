@@ -23,13 +23,13 @@ def millisec(timeStr):
 
 
 k = str(pipeline(
-    "C:\\Users\\16043\\Desktop\\whisper\\test.wav")).split('\n')
+    "C:\\tomcat\\webapps\\trivia\\WEB-INF\\classes\\test.wav")).split('\n')
 
 del pipeline
 gc.collect()
 
 audio = AudioSegment.from_wav(
-    "C:\\Users\\16043\\Desktop\\whisper\\test.wav")
+    "C:\\tomcat\\webapps\\trivia\\WEB-INF\\classes\\test.wav")
 audio = audio.set_frame_rate(16000)
 
 model = whisper.load_model("small.en")
@@ -43,7 +43,7 @@ for l in range(len(k)):
 
     result = model.transcribe(tr, fp16=False)
 
-    f = open("C:\\Users\\16043\\Desktop\\whisper\\tr_file.txt", "a")
+    f = open("C:\\Users\\cassi\\Documents\\Cassidy\\BCIT\\TERM4\\COMP4941\\EchoQuizzer\\EchoQuizzer\\output.txt", "a")
     f.write(f'\n[ {j[1]} -- {j[3]} ] {j[6]} : {result["text"]}')
     f.close()
 
